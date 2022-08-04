@@ -19,10 +19,15 @@ def extractAllFiles(path: str, filename: str):
     
     return files
     
-def loadData(path: str, filename: str, delimit: str):
+def loadData(path: str, filename: str, delimit: str, ftype='txt'):
     
     filepath = path+'/'+filename
-    df = pd.read_table(filepath, delimiter = delimit,
-                       low_memory=False)
-    
+    if ftype == 'txt':
+        df = pd.read_table(filepath, delimiter = delimit,
+                           low_memory=False)
+    elif ftype == 'pickle':
+        df = pd.read_pickle(filepath)
+    else:
+        df = pd.read_csv(filepath, delimiter = delimit,
+                           low_memory=False)    
     return df

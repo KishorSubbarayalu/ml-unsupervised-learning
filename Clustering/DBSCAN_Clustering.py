@@ -10,7 +10,6 @@ import pandas as pd
 from sklearn.cluster import DBSCAN
 import seaborn as sb
 import numpy as np
-import pickle
 
 path = './Data'
 filename = 'household_power_consumption.zip'
