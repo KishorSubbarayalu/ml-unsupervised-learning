@@ -5,7 +5,7 @@ Created on Thu Jul  7 00:02:01 2022
 @author: Admin
 """
 
-from utils import extractAllFiles,loadData
+from myUtils import extractAllFiles,loadData
 import pandas as pd
 from sklearn.cluster import DBSCAN
 import seaborn as sb

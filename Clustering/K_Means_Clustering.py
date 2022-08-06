@@ -5,7 +5,7 @@ Created on Wed Aug  3 22:37:09 2022
 @author: Admin
 """
 
-from utils import loadData
+from myUtils import loadData
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
