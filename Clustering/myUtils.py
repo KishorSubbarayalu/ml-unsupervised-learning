@@ -8,8 +8,11 @@ Created on Wed Jul  6 23:43:43 2022
 from zipfile import ZipFile
 from typing import TypeVar
 import pandas as pd
+import seaborn as sb
+import matplotlib.pyplot as plt
 
 DataFrame = TypeVar('pandas.core.frame.DataFrame')
+Series = TypeVar('pandas.core.frame.Series')
 
 #----------------------------------------------------------------------------#
 
@@ -66,5 +69,17 @@ def removeColumns(**kwargs):
     df = df.drop(dropcols,axis=1)
     
     return df
+
+def drawHistogram(df: DataFrame,feature: Series,rows: int,cols: int,pos: int):
+    plt.subplot(rows,cols,pos)
+    plt.title(f'Data distribution of {feature} : Histogram')
+    plt.ylabel('Frequency')
+    sb.histplot(df[feature],bins=6,kde=True)
+    plt.show()
     
-    
+def drawBoxplot(df: DataFrame,feature: Series,rows: int,cols: int,pos: int):
+    plt.subplot(rows,cols,pos)
+    plt.title(f'Data distribution of {feature} : Box plot')
+    plt.ylabel('Frequency')
+    sb.boxplot(df[feature])
+    plt.show()
