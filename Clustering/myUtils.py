@@ -9,6 +9,8 @@ from zipfile import ZipFile
 from typing import TypeVar
 import pandas as pd
 import seaborn as sb
+import requests
+import json
 import matplotlib.pyplot as plt
 
 DataFrame = TypeVar('pandas.core.frame.DataFrame')
@@ -27,7 +29,7 @@ def extractAllFiles(path: str, filename: str):
     
     return files
     
-def loadData(path: str, filename: str, delimit: str, ftype='txt'):
+def loadData(path: str, filename='csv', delimit='', ftype='txt'):
     
     filepath = path+'/'+filename
     if ftype == 'txt':
@@ -35,6 +37,8 @@ def loadData(path: str, filename: str, delimit: str, ftype='txt'):
                            low_memory=False)
     elif ftype == 'pickle':
         df = pd.read_pickle(filepath)
+    elif ftype == 'json':
+        df = pd.read_json(path)
     else:
         df = pd.read_csv(filepath, delimiter = delimit,
                            low_memory=False)    
@@ -83,3 +87,15 @@ def drawBoxplot(df: DataFrame,feature: Series,rows: int,cols: int,pos: int):
     plt.ylabel('Frequency')
     sb.boxplot(df[feature])
     plt.show()
+    
+def getData(method: str, url: str, headers: dict, payload: dict):
+    return requests.request(method,url,headers=headers,params=payload).json()
+
+def removeKeysInDictionary(dictionary: dict, requiredkey: list):
+    for key in list(dictionary.keys()):
+        if key not in requiredkey:
+            dictionary.pop(key)
+            
+def getJsonDumps(data):
+    return json.dumps(data)
+    
