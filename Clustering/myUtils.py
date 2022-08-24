@@ -31,15 +31,19 @@ def extractAllFiles(path: str, filename: str):
     
 def loadData(path: str, filename='csv', delimit='', ftype='txt'):
     
-    filepath = path+'/'+filename
     if ftype == 'txt':
+        filepath = path+'/'+filename
         df = pd.read_table(filepath, delimiter = delimit,
                            low_memory=False)
     elif ftype == 'pickle':
+        filepath = path+'/'+filename
         df = pd.read_pickle(filepath)
     elif ftype == 'json':
         df = pd.read_json(path)
+    elif ftype == 'dictionary':
+        df = pd.DataFrame.from_dict(path)
     else:
+        filepath = path+'/'+filename
         df = pd.read_csv(filepath, delimiter = delimit,
                            low_memory=False)    
     return df
@@ -50,7 +54,7 @@ def exploreData(df: DataFrame):
     print('\n----------------------------------------\n')
     print(f'Feature Information:\n{df.info()}')
     print('\n----------------------------------------\n')
-    print(f"Feature Description:\n{df.describe(include='O')}")
+    print(f"Feature Description:\n{df.describe(include='all')}")
     
 def getNullPercent(df: DataFrame):
     print('----------------------------------------\n')
